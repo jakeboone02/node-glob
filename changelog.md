@@ -1,3 +1,8 @@
+## 9.1
+
+- Add `magicalBraces` option to treat brace expansion as "magic"
+  in the `hasMagic` function.
+
 ## 9.0
 
 This is a full rewrite, with significant API and algorithm

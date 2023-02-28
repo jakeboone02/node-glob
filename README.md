@@ -129,11 +129,14 @@ if they're not consumed immediately.
 Returns `true` if the provided pattern contains any "magic" glob
 characters, given the options provided.
 
-Note that brace expansion is not considered "magic", as that just
-turns one string into an array of strings. So a pattern like
-`'x{a,b}y'` would return `false`, because `'xay'` and `'xby'`
-both do not contain any magic glob characters, and it's treated
-the same as if you had called it on `['xay', 'xby']`.
+Brace expansion is not considered "magic" unless the
+`magicalBraces` option is set, as brace expansion just turns one
+string into an array of strings. So a pattern like `'x{a,b}y'`
+would return `false`, because `'xay'` and `'xby'` both do not
+contain any magic glob characters, and it's treated the same as
+if you had called it on `['xay', 'xby']`. When
+`magicalBraces:true` is in the options, brace expansion _is_
+treated as a pattern having magic.
 
 ## Class `Glob`
 
@@ -200,7 +203,7 @@ share the previously loaded cache.
 
 - `cwd` String path or `file://` string or URL object. The
   current working directory in which to search. Defaults to
-  `process.cwd()`.  See also: "Windows, CWDs, Drive Letters, and
+  `process.cwd()`. See also: "Windows, CWDs, Drive Letters, and
   UNC Paths", below.
 
   This option may be eiher a string path or a `file://` URL
@@ -222,6 +225,12 @@ share the previously loaded cache.
 - `dot` Include `.dot` files in normal matches and `globstar`
   matches. Note that an explicit dot in a portion of the pattern
   will always match dot files.
+
+- `magicalBraces` Treat brace expansion like `{a,b}` as a "magic"
+  pattern. Has no effect if {@link nobrace} is set.
+
+  Only has effect on the {@link hasMagic} function, no effect on
+  glob pattern matching itself.
 
 - `mark` Add a `/` character to directory matches. Note that this
   requires additional stat calls.
