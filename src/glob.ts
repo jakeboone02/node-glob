@@ -69,6 +69,17 @@ export interface GlobOptions {
    * will always match dot files.
    */
   dot?: boolean
+
+  /**
+   * Prepend all relative path strings with `./` (or `.\` on Windows).
+   *
+   * Without this option, returned relative paths are "bare", so instead of
+   * returning `'./foo/bar'`, they are returned as `'foo/bar'`.
+   *
+   * Relative patterns starting with `'../'` are not prepended with `./`, even
+   * if this option is set.
+   */
+  dotRelative?: boolean
   /**
    * Follow symlinked directories when expanding `**`
    * patterns. This can result in a lot of duplicate references in
@@ -215,6 +226,7 @@ export class Glob<Opts extends GlobOptions> implements GlobOptions {
   absolute: boolean
   cwd: string
   dot: boolean
+  dotRelative: boolean
   follow: boolean
   ignore?: Ignore
   mark: boolean
@@ -259,6 +271,7 @@ export class Glob<Opts extends GlobOptions> implements GlobOptions {
     this.signal = opts.signal
     this.follow = !!opts.follow
     this.dot = !!opts.dot
+    this.dotRelative = !!opts.dotRelative
     this.nodir = !!opts.nodir
     this.mark = !!opts.mark
     if (!opts.cwd) {

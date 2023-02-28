@@ -200,7 +200,7 @@ share the previously loaded cache.
 
 - `cwd` String path or `file://` string or URL object. The
   current working directory in which to search. Defaults to
-  `process.cwd()`.  See also: "Windows, CWDs, Drive Letters, and
+  `process.cwd()`. See also: "Windows, CWDs, Drive Letters, and
   UNC Paths", below.
 
   This option may be eiher a string path or a `file://` URL
@@ -222,6 +222,16 @@ share the previously loaded cache.
 - `dot` Include `.dot` files in normal matches and `globstar`
   matches. Note that an explicit dot in a portion of the pattern
   will always match dot files.
+
+- `dotRelative` Prepend all relative path strings with `./` (or
+  `.\` on Windows).
+
+  Without this option, returned relative paths are "bare", so
+  instead of returning `'./foo/bar'`, they are returned as
+  `'foo/bar'`.
+
+  Relative patterns starting with `'../'` are not prepended with
+  `./`, even if this option is set.
 
 - `mark` Add a `/` character to directory matches. Note that this
   requires additional stat calls.

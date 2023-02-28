@@ -1,3 +1,7 @@
+## 9.1
+
+- Add `dotRelative` option
+
 ## 9.0
 
 This is a full rewrite, with significant API and algorithm
